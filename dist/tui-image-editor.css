@@ -8,7 +8,7 @@ body > textarea {
   position: fixed !important;
 }
 .tui-image-editor-container {
-  marign: 0;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
   min-height: 300px;
@@ -427,7 +427,7 @@ body > textarea {
 .tui-image-editor-container .tui-image-editor-virtual-range-bar .tui-image-editor-disabled,
 .tui-image-editor-container .tui-image-editor-virtual-range-subbar .tui-image-editor-disabled,
 .tui-image-editor-container .tui-image-editor-virtual-range-pointer .tui-image-editor-disabled {
-  backbround-color: #f00;
+  background-color: #f00;
 }
 .tui-image-editor-container .tui-image-editor-range {
   position: relative;
