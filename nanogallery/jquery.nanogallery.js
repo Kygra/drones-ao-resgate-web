@@ -125,7 +125,7 @@ nanoGALLERY v5.10.3 release notes.
     openOnStart : '',
     viewerToolbar : {
       display:true, position : 'bottom', style : 'innerImage', autoMinimize:800,
-      standard:'minimizeButton , previousButton, pageCounter ,nextButton,playPauseButton,fullscreenButton,infoButton,linkOriginalButton,closeButton,label',
+      standard:'minimizeButton , previousButton, pageCounter ,nextButton, editButton,playPauseButton,fullscreenButton,infoButton,linkOriginalButton,closeButton,label',
       minimized:'minimizeButton,label'
     },
     thumbnailAlignment : 'center',
@@ -169,7 +169,8 @@ nanoGALLERY v5.10.3 release notes.
       'thumbnailImageDescription' : '', 'thumbnailAlbumDescription' : '',
       'infoBoxPhoto' : 'Photo', 'infoBoxDate' : 'Date', 'infoBoxAlbum' : 'Album', 'infoBoxDimensions' : 'Dimensions', 'infoBoxFilename' : 'Filename', 'infoBoxFileSize' : 'File size', 'infoBoxCamera' : 'Camera', 'infoBoxFocalLength' : 'Focal length', 'infoBoxExposure' : 'Exposure', 'infoBoxFNumber' : 'F Number', 'infoBoxISO' : 'ISO', 'infoBoxMake' : 'Make', 'infoBoxFlash' : 'Flash', 'infoBoxViews' : 'Views', 'infoBoxComments' : 'Comments',
       'infoBoxPhoto_ES' : 'Foto',	'infoBoxDate_ES' : 'Fecha',	'infoBoxAlbum_ES' : 'Album',	'infoBoxDimensions_ES' : 'Dimensiones',	'infoBoxFilename_ES' : 'Nombre', 'infoBoxFileSize_ES' : 'Tama&ntilde;o', 'infoBoxCamera_ES' : 'C&aacute;mara', 'infoBoxFocalLength_ES' : 'Longitud focal', 'infoBoxExposure_ES' : 'Exposici&oacute;n', 'infoBoxFNumber_ES' : 'N&uacute;mero F', 'infoBoxISO_ES' : 'ISO', 'infoBoxMake_ES' : 'Hacer', 'infoBoxFlash_ES' : 'Flash', 'infoBoxViews_ES' : 'Vistas', 'infoBoxComments_ES' : 'Comentarios'
-    }
+    },
+    urlDaImagemAtual : ''
   };
 
   jQuery.fn.nanoGallery = function (args, option, value) {
@@ -2475,7 +2476,7 @@ nanoGALLERY v5.10.3 release notes.
 
       if( p > 0 ) {
         albumID=ID.substring(0,p);
-        imageID=ID.substring(p+1);
+        imageID=ID.substring(p+1);        
         for(var i=0; i<l; i++ ) {
           if( G.I[i].kind == 'image' && G.I[i].GetID() == imageID ) {
             imageIdx=i;
@@ -2516,6 +2517,7 @@ nanoGALLERY v5.10.3 release notes.
             DisplayImage(imageIdx);
           }
         }
+
         return true;
 
       }
@@ -7499,6 +7501,8 @@ nanoGALLERY v5.10.3 release notes.
       var sImg='',
       l=G.I.length;
 
+      G.O.urlDaImagemAtual = G.I[imageIdx].responsiveURL();
+
       sImg+='<img class="image nGEvent" src="'+G.I[imageIdx].responsiveURL()+'" alt=" " style="visibility:visible;opacity:0;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;zoom:1;" itemprop="contentURL">';
       sImg+='<img class="image nGEvent" src="'+G.I[imageIdx].responsiveURL()+'" alt=" " style="visibility:visible;opacity:0;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;zoom:1;" itemprop="contentURL">';
       sImg+='<img class="image nGEvent" src="'+G.I[imageIdx].responsiveURL()+'" alt=" " style="visibility:visible;opacity:0;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;zoom:1;" itemprop="contentURL">';
@@ -7631,6 +7635,7 @@ nanoGALLERY v5.10.3 release notes.
 
       G.$E.conVwTb.find('.nextButton').on("touchstart click",function(e){ e.stopPropagation(); DisplayNextImagePart1(); });
       G.$E.conVwTb.find('.previousButton').on("touchstart click",function(e){ e.stopPropagation(); DisplayPreviousImage(); });
+      G.$E.conVwTb.find('.editButton').on("touchstart click",function(e){ e.stopPropagation(); OpenImageEditor(); });
       G.$E.vwContent.find('.contentAreaNext').on("touchstart click",function(e){ e.stopPropagation(); DisplayNextImagePart1(); });
       G.$E.vwContent.find('.contentAreaPrevious').on("touchstart click",function(e){ e.stopPropagation(); DisplayPreviousImage(); });
 
@@ -7676,6 +7681,9 @@ nanoGALLERY v5.10.3 release notes.
           break;
         case 'nextButton':
           r='<div class="ngbt nextButton nGEvent"></div>';
+          break;
+        case 'editButton':
+          r='<div class="ngbt editButton nGEvent"></div>';
           break;
         case 'playPauseButton':
           r='<div class="ngbt playButton playPauseButton nGEvent"></div>';
@@ -8022,6 +8030,18 @@ nanoGALLERY v5.10.3 release notes.
       var newImageIdx=GetPreviousImageIdx(G.viewerCurrentItemIdx);
       DisplayInternalViewer(newImageIdx, 'previousImage');
     };
+
+    // Open image editor
+    function OpenImageEditor() {
+      console.log("G.O.urlDaImagemAtual : "+ G.O.urlDaImagemAtual);
+
+      var re = /https?:\/\/drive.google.com\/.*id=/g;
+      var nameList = G.O.urlDaImagemAtual.split(re);      
+      var idDaImagemAtual = nameList[1];
+
+      //id unico da imagem passado para ser aberta pelo editor
+      location.href = "editor.html?url=" + idDaImagemAtual;
+    }
 
     // Display image (and run animation)
     function DisplayInternalViewer( imageIdx, displayType ) {

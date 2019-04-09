@@ -17,12 +17,12 @@ if( ini_get('allow_url_fopen') ) {
 	}
 
 // global consts
-$apiKey = 'AIzaSyB80d-6sayLqWOZvc6R71FQF5JySbxeF94'; // googleApi key
+$apiKey = 'AIzaSyDy3-H6gDfiq4zEq10JuRoJZUQISVWFR2s'; // googleApi key
 $defaultFolderId = '1KujX9HlGo-gvHJcpNB9RKBkt5wN44MA-'; // id of photos root dir
 $defaultPath = 'http://drones-ao-resgate.appspot.com/gallery.php'; // default path of this gdrive_nanogallery.php file
 $defaultFolderImageUrl = ''; // url of png or jpg for default thumbnail
 $showThumbnail = false;
-$thumbnailHeight = 156;
+$thumbnailHeight = 200;
 $imageHeight = 700;
 $imageHeightXS = 400;
 $imageHeightSM = 600;
@@ -35,7 +35,7 @@ function retrieveFilesArray($folderId, $apiKey){
   // returns all files in GDrive folder
   $request = 'https://www.googleapis.com/drive/v3/files?pageSize=999&orderBy=name&q=%27'.$folderId.'%27+in+parents&fields=files(id%2CimageMediaMetadata%2Ftime%2CmimeType%2Cname)&key='.$apiKey;
   $response = get_url_content($request);
-  echo $response;
+  //echo $response;
   $response = json_decode($response, $assoc = true);
   $fileArray = $response['files'];
   return $fileArray;
@@ -128,14 +128,15 @@ function retrieveFileName($fileId, $apiKey){
 //}
 
 // retrive data
-$folderName = retrieveFileName($folderId, $apiKey);
+//$folderName = retrieveFileName($folderId, $apiKey);
+$folderName = 'Drones ao Resgate';
 $subfolderArray = retrieveSubfolderArray($folderId, $apiKey);
 $imageIds = retrieveImageIds($folderId, $apiKey);
 
 // START OF HTML ----------------------------------------------------------------------------------------------
 ?> 
 
-<html lang="cz">
+<html lang="en">
   <head>
     <title><?= $folderName ?></title>
     <meta charset="utf-8">
@@ -211,14 +212,14 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
             ?>
         ],
       thumbnailWidth: 'auto',
-      thumbnailHeight: 145,
+      thumbnailHeight: 200,
       theme: 'light',
       colorScheme: 'none',
       thumbnailHoverEffect: [{ name: 'labelAppear75', duration: 300 }],
       thumbnailGutterWidth : 0,
       thumbnailGutterHeight : 0,
       slideshowDelay: 5000,
-      i18n: { thumbnailImageDescription: 'Zvětšit', thumbnailAlbumDescription: 'Otevřít album' },
+      i18n: { thumbnailImageDescription: 'Image', thumbnailAlbumDescription: 'Album' },
       thumbnailLabel: { display: true, position: 'overImageOnMiddle', align: 'center' }
 
     });

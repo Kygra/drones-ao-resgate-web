@@ -772,6 +772,10 @@
 	content: '\e81c';	/* .icon-right-open */
 }
 
+.nanogallery_theme_light #nanoGalleryViewer .toolbar .editButton:after{
+	content: '\e846';	/* .edit */
+}
+
 .nanogallery_theme_light #nanoGalleryViewer .toolbar .closeButton:after{
 	content: '\e80a';	/* .icon-cancel */
 }
