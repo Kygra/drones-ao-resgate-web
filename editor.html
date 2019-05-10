@@ -19,18 +19,26 @@
   <body>
     <div id="tui-image-editor-container"></div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.7/fabric.js"></script>
     <script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.3.0/tui-code-snippet.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/nhnent/tui.color-picker/v2.2.0/dist/tui-color-picker.js"></script>
+
+    <script type="text/javascript" src="js/upload-file.js"></script>
+
     <script type="text/javascript" src="dist/tui-image-editor.js"></script>
-    <script type="text/javascript" src="https://nhnent.github.io/tui.image-editor/latest/tutorials/js/theme/black-theme.js"></script>
+    <script type="text/javascript" src="js/theme/black-theme.js"></script>
 
     <script src="https://apis.google.com/js/api.js"></script>
-    <script>
 
+
+
+    <script>
       var urlParam = location.search.split('url=')[1];
       var urlImage = '';
+      var nameImage = '';
       var imageEditor;
 
       /**
@@ -39,7 +47,7 @@
        * https://developers.google.com/explorer-help/guides/code_samples#javascript
        */
       function loadClient() {
-        gapi.client.setApiKey("AIzaSyCTuvD3KLYd4TSvxpcPiNBK_GGVrtD7GdI");
+        gapi.client.setApiKey("AIzaSyDy3-H6gDfiq4zEq10JuRoJZUQISVWFR2s");
         return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/drive/v3/rest")
             .then(function() { 
                 console.log("GAPI client loaded for API"); 
@@ -51,11 +59,15 @@
       function execute() {
         return gapi.client.drive.files.get({
           "fileId": urlParam,
-          "fields": "thumbnailLink"
+          "fields": "thumbnailLink, name, imageMediaMetadata"
+
+          //"fields": "thumbnailLink"
         })
             .then(function(response) {
                 // Handle the results here (response.result has the parsed body).
                 urlImage = response.result.thumbnailLink;
+                nameImage = response.result.name;
+                console.log("response.result: " + response.result);
                 console.log(urlImage);                
                 urlImage = urlImage.replace(/=.*/g, "=w5000");
                 console.log(urlImage);
@@ -66,7 +78,7 @@
                     includeUI: {
                         loadImage: {
                             path: urlImage,
-                            name: 'SampleImage'
+                            name: nameImage
                         },
                         theme: blackTheme, // or whiteTheme
                         initMenu: 'filter',
@@ -83,6 +95,16 @@
       window.onresize = function() {
         imageEditor.ui.resizeEditor();
       }
-    </script> 
+    
+      function botaoSalvar(){
+        //window.location.href='gallery.php';
+      }
+      function botaoGaleria(){
+        window.location.href='gallery.php';
+      }
+    </script>  
+
+
+
   </body>
 </html>

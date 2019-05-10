@@ -129,7 +129,7 @@ function retrieveFileName($fileId, $apiKey){
 
 // retrive data
 //$folderName = retrieveFileName($folderId, $apiKey);
-$folderName = 'Drones ao Resgate';
+$folderName = 'Drones ao Resgate - Galeria';
 $subfolderArray = retrieveSubfolderArray($folderId, $apiKey);
 $imageIds = retrieveImageIds($folderId, $apiKey);
 
@@ -150,11 +150,18 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
     <link href="nanogallery/css/nanogallery.css" rel="stylesheet" type="text/css">
     <link href="nanogallery/css/themes/light/nanogallery_light.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="nanogallery/jquery.nanogallery.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
     <link href="styles/default.css" rel="stylesheet" type="text/css" media="screen">
   </head>
 
 
   <body>
+    <div class='home'>
+      <h1>Galeria de imagens compartilhada</h1>
+      <p>As imagens são apresentadas de acordo com a última modificação, da mais <b>recente</b> para a mais <b>antiga</b>.</p>
+    </div>
     <div class="roundcontent" style="width: 96%; margin: 2%; margin-top: 10px; padding: 10px;">
       <?php
       if($homeId !== $folderId){

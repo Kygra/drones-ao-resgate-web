@@ -4987,7 +4987,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            'delete': this._menuElement.querySelector('#tie-btn-delete'),
 	            'deleteAll': this._menuElement.querySelector('#tie-btn-delete-all'),
 	            'download': this._selectedElement.querySelectorAll('.tui-image-editor-download-btn'),
-	            'load': this._selectedElement.querySelectorAll('.tui-image-editor-load-btn')
+				'load': this._selectedElement.querySelectorAll('.tui-image-editor-load-btn'),
+				'upload': this._selectedElement.querySelectorAll('.tui-image-editor-upload-btn'),
 	        };
 
 	        this._makeSubMenu();
@@ -5252,13 +5253,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	                biImage: this.theme.getStyle('common.bi'),
 	                iconStyle: this.theme.getStyle('menu.icon'),
 	                loadButtonStyle: this.theme.getStyle('loadButton'),
-	                downloadButtonStyle: this.theme.getStyle('downloadButton')
+					downloadButtonStyle: this.theme.getStyle('downloadButton'),
+					saveButtonStyle: this.theme.getStyle('saveButton')
 	            }) + (0, _mainContainer2.default)({
 	                biImage: this.theme.getStyle('common.bi'),
 	                commonStyle: this.theme.getStyle('common'),
 	                headerStyle: this.theme.getStyle('header'),
 	                loadButtonStyle: this.theme.getStyle('loadButton'),
-	                downloadButtonStyle: this.theme.getStyle('downloadButton'),
+					downloadButtonStyle: this.theme.getStyle('downloadButton'),
+					saveButtonStyle: this.theme.getStyle('saveButton'),
 	                submenuStyle: this.theme.getStyle('submenu')
 	            });
 
@@ -5329,6 +5332,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _tuiCodeSnippet2.default.forEach(this._els.download, function (element) {
 	                element.addEventListener('click', function () {
 	                    _this3._actions.main.download();
+	                });
+	            });
+			}
+			
+			/**
+	         * Add upload event
+	         * @private
+	         */
+
+	    }, {
+	        key: '_addUploadEvent',
+	        value: function _addUploadEvent() {
+	            var _this3 = this;
+
+	            _tuiCodeSnippet2.default.forEach(this._els.upload, function (element) {
+	                element.addEventListener('click', function () {
+	                    _this3._actions.main.upload();
 	                });
 	            });
 	        }
@@ -5408,7 +5428,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _this6._addHelpActionEvent('deleteAll');
 
 	                    _this6._addDownloadEvent();
-	                    _this6._addLoadEvent();
+						_this6._addLoadEvent();
+						_this6._addUploadEvent();
 
 	                    _tuiCodeSnippet2.default.forEach(_this6.options.menu, function (menuName) {
 	                        _this6._addMenuEvent(menuName);
@@ -5599,9 +5620,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        commonStyle = _ref.commonStyle,
 	        headerStyle = _ref.headerStyle,
 	        loadButtonStyle = _ref.loadButtonStyle,
-	        downloadButtonStyle = _ref.downloadButtonStyle,
+			downloadButtonStyle = _ref.downloadButtonStyle,
+			saveButtonStyle = _ref.saveButtonStyle,
 	        submenuStyle = _ref.submenuStyle;
-	    return "\n    <div class=\"tui-image-editor-main-container\" style=\"" + commonStyle + "\">\n        <div class=\"tui-image-editor-header\" style=\"" + headerStyle + "\">\n            <div class=\"tui-image-editor-header-logo\">\n                <img src=\"" + biImage + "\" />\n            </div>\n            <div class=\"tui-image-editor-header-buttons\">\n                <button style=\"" + loadButtonStyle + "\">\n                    Load\n                    <input type=\"file\" class=\"tui-image-editor-load-btn\" />\n                </button>\n                <button class=\"tui-image-editor-download-btn\" style=\"" + downloadButtonStyle + "\">\n                    Download\n                </button>\n            </div>\n        </div>\n        <div class=\"tui-image-editor-main\">\n            <div class=\"tui-image-editor-submenu\">\n                <div class=\"tui-image-editor-submenu-style\" style=\"" + submenuStyle + "\"></div>\n            </div>\n            <div class=\"tui-image-editor-wrap\">\n                <div class=\"tui-image-editor-size-wrap\">\n                    <div class=\"tui-image-editor-align-wrap\">\n                        <div class=\"tui-image-editor\"></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n";
+	    return "\n    <div class=\"tui-image-editor-main-container\" style=\"" + commonStyle + "\">\n        <div class=\"tui-image-editor-header\" style=\"" + headerStyle + "\">\n            <div class=\"tui-image-editor-header-logo\">\n                <img src=\"" + biImage + "\" />\n            </div>\n            <div class=\"tui-image-editor-header-buttons\">\n                <button class=\"btn\" style=\"" + loadButtonStyle + "\" onclick=\"botaoGaleria()\">Galeria</button>\n                <button class=\"tui-image-editor-download-btn\" style=\"" + loadButtonStyle + "\">\n                    Download\n                </button>\n            <button class=\"tui-image-editor-upload-btn\" onclick=\"botaoSalvar()\" style=\"" + saveButtonStyle + "\">Salvar e voltar para Galeria</button>\n</div>\n        </div>\n        <div class=\"tui-image-editor-main\">\n            <div class=\"tui-image-editor-submenu\">\n                <div class=\"tui-image-editor-submenu-style\" style=\"" + submenuStyle + "\"></div>\n            </div>\n            <div class=\"tui-image-editor-wrap\">\n                <div class=\"tui-image-editor-size-wrap\">\n                    <div class=\"tui-image-editor-align-wrap\">\n                        <div class=\"tui-image-editor\"></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n";
 	};
 
 /***/ }),
@@ -5620,9 +5642,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        normal = _ref$iconStyle.normal,
 	        hover = _ref$iconStyle.hover,
 	        disabled = _ref$iconStyle.disabled,
-	        loadButtonStyle = _ref.loadButtonStyle,
+			loadButtonStyle = _ref.loadButtonStyle,
+			saveButtonStyle = _ref.saveButtonStyle,
 	        downloadButtonStyle = _ref.downloadButtonStyle;
-	    return "\n    <div class=\"tui-image-editor-controls\">\n        <div class=\"tui-image-editor-controls-logo\">\n            <img src=\"" + biImage + "\" />\n        </div>\n        <ul class=\"tui-image-editor-menu\">\n            <li id=\"tie-btn-undo\" class=\"tui-image-editor-item\" title=\"Undo\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-undo\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-undo\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-undo\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-redo\" class=\"tui-image-editor-item\" title=\"Redo\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-redo\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-redo\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-redo\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-reset\" class=\"tui-image-editor-item\" title=\"Reset\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-reset\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-reset\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-reset\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li class=\"tui-image-editor-item\">\n                <div class=\"tui-image-editor-icpartition\"></div>\n            </li>\n            <li id=\"tie-btn-delete\" class=\"tui-image-editor-item\" title=\"Delete\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-delete\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-delete\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-delete\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-delete-all\" class=\"tui-image-editor-item\" title=\"Delete-all\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-delete-all\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-delete-all\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-delete-all\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li class=\"tui-image-editor-item\">\n                <div class=\"tui-image-editor-icpartition\"></div>\n            </li>\n        </ul>\n\n        <div class=\"tui-image-editor-controls-buttons\">\n            <button style=\"" + loadButtonStyle + "\">\n                Load\n                <input type=\"file\" class=\"tui-image-editor-load-btn\" />\n            </button>\n            <button class=\"tui-image-editor-download-btn\" style=\"" + downloadButtonStyle + "\">\n                Download\n            </button>\n        </div>\n    </div>\n";
+	    return "\n    <div class=\"tui-image-editor-controls\">\n        <div class=\"tui-image-editor-controls-logo\">\n            <img src=\"" + biImage + "\" />\n        </div>\n        <ul class=\"tui-image-editor-menu\">\n            <li id=\"tie-btn-undo\" class=\"tui-image-editor-item\" title=\"Undo\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-undo\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-undo\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-undo\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-redo\" class=\"tui-image-editor-item\" title=\"Redo\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-redo\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-redo\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-redo\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-reset\" class=\"tui-image-editor-item\" title=\"Reset\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-reset\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-reset\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-reset\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li class=\"tui-image-editor-item\">\n                <div class=\"tui-image-editor-icpartition\"></div>\n            </li>\n            <li id=\"tie-btn-delete\" class=\"tui-image-editor-item\" title=\"Delete\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-delete\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-delete\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-delete\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-delete-all\" class=\"tui-image-editor-item\" title=\"Delete-all\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-delete-all\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-delete-all\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-delete-all\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li class=\"tui-image-editor-item\">\n                <div class=\"tui-image-editor-icpartition\"></div>\n            </li>\n        </ul>\n\n        <div class=\"tui-image-editor-controls-buttons\">\n            <button class=\"btn\" style=\"" + loadButtonStyle + "\" onclick=\"botaoGaleria()\">Galeria</button>\n                <button class=\"tui-image-editor-download-btn\" style=\"" + loadButtonStyle + "\">\n                    Download\n                </button>\n            <button class=\"tui-image-editor-upload-btn\" onclick=\"botaoSalvar()\" style=\"" + saveButtonStyle + "\" >Salvar e voltar para Galeria</button>\n        </div>\n    </div>\n";
 	};
 
 /***/ }),
@@ -6028,12 +6051,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  'loadButton.fontFamily': '"Noto Sans", sans-serif',
 	  'loadButton.fontSize': '12px',
 
+	  // save button
+	  'saveButton.backgroundColor': '#fdba3b',
+	  'saveButton.border': '1px solid #fdba3b',
+	  'saveButton.color': '#222',
+	  'saveButton.fontSize': '12px',
+	  'saveButton.width': '180px',
+
 	  // download button
 	  'downloadButton.backgroundColor': '#fdba3b',
 	  'downloadButton.border': '1px solid #fdba3b',
-	  'downloadButton.color': '#fff',
+	  'downloadButton.color': '#222',
 	  'downloadButton.fontFamily': '"Noto Sans", sans-serif',
 	  'downloadButton.fontSize': '12px',
+	  'downloadButton.width': '180px',
 
 	  // main icons
 	  'menu.normalIcon.path': 'icon-d.svg',
@@ -11935,11 +11966,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                });
 	            },
 	            download: function download() {
-	                var dataURL = _this.toDataURL();
+					var dataURL = _this.toDataURL();
 	                var imageName = _this.getImageName();
 	                var blob = void 0,
 	                    type = void 0,
-	                    w = void 0;
+						w = void 0;
+
+					//console.log("dataURL :"+ dataURL);
 
 	                if (_util2.default.isSupportFileApi() && window.saveAs) {
 	                    blob = _util2.default.base64ToBlob(dataURL);
@@ -11952,6 +11985,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    w = window.open();
 	                    w.document.body.innerHTML = '<img src=\'' + dataURL + '\'>';
 	                }
+				},
+				upload: function upload() {
+	                var dataURL = _this.toDataURL();
+	                var imageName = _this.getImageName();
+	                var blob = void 0,
+	                    type = void 0,
+						w = void 0;
+
+	                if (_util2.default.isSupportFileApi()) {
+	                    blob = _util2.default.base64ToBlob(dataURL);
+	                    //type = blob.type.split('/')[1];
+	                    //if (imageName.split('.').pop() !== type) {
+	                    //    imageName += '.' + type;
+	                    //}
+						//saveAs(blob, imageName); // eslint-disable-line
+						uploadFile(blob, imageName);
+	                } else {
+	                    w = window.open();
+	                    w.document.body.innerHTML = '<img src=\'' + dataURL + '\'>';
+					}
+
 	            }
 	        }, this._commonAction());
 	    },
