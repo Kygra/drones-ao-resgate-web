@@ -25,7 +25,7 @@ function postToUpload(path, params, method='post') {
 
 function uploadFile(file, imageName) {
     var destino = "https://script.google.com/macros/s/AKfycbwJ2FCx6osLIolP_3V6_1s01D5XJN3J3sw6_phml12qHjyYa7M/exec";
-    var retorno = window.location.hostname + "/gallery.php";
+    var retorno = "http://" + window.location.hostname + "/gallery.php";
 
     var fr = new FileReader();
 
@@ -33,6 +33,10 @@ function uploadFile(file, imageName) {
     fr.onload = function(e) {
         e.target.result
         var parametros = {};
+
+        //TESTE
+        console.log(e.target);
+
         parametros.data = e.target.result.replace(/^.*,/, '');
         parametros.mimetype = e.target.result.match(/^.*(?=;)/)[0];
         parametros.filename = e.target.fileName;

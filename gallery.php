@@ -30,7 +30,6 @@ $imageHeightME = 750;
 $imageHeightLA = 1000;
 $imageHeightXL = 1400;
 
-
 function retrieveFilesArray($folderId, $apiKey){
   // returns all files in GDrive folder
   $request = 'https://www.googleapis.com/drive/v3/files?pageSize=999&orderBy=name&q=%27'.$folderId.'%27+in+parents&fields=files(id%2CimageMediaMetadata%2Ftime%2CmimeType%2Cname)&key='.$apiKey;
@@ -70,6 +69,25 @@ function getfileIds($fileArray){
   return $imageIdsArray;
 }
 
+//TESTE
+function getfileNames($fileArray){ 
+  // returns array of all NAMES from input array
+  $imageNamesArray = [];
+  foreach($fileArray as $file){
+    $imageNamesArray[] = $file['name'];
+  }
+  return $imageNamesArray;
+}
+function getfileDates($fileArray){ 
+  // returns array of all DATES from input array
+  $imageDatesArray = [];
+  foreach($fileArray as $file){
+    $imageDatesArray[] = $file["imageMediaMetadata"]["time"];
+  }
+  return $imageDatesArray;
+}
+//
+
 function orderImagesByTime($imageArray){ 
   // returns array of images sorted by the date of picture is taken and name
   $sortingArray = array();
@@ -78,6 +96,7 @@ function orderImagesByTime($imageArray){
     $sortingArray["name"][$key] = $image["name"];
   }
   array_multisort($sortingArray["time"], SORT_ASC, $sortingArray["name"], SORT_ASC, $imageArray);
+
   return $imageArray;
 }
 
@@ -111,6 +130,15 @@ function retrieveFileName($fileId, $apiKey){
   return $fileName;
 }
 
+function debug_to_console( $data ) {
+  $output = $data;
+  if ( is_array( $output ) ){
+      echo '<pre>'; print_r($output); echo '</pre>'; //$output = implode( ',', $output);
+  }
+  else {
+    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+  }
+}
 
 // process variables from GET
 //if($_GET['folderId'] != ""){
@@ -151,13 +179,18 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
     <link href="nanogallery/css/themes/light/nanogallery_light.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="nanogallery/jquery.nanogallery.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">    
 
     <link href="styles/default.css" rel="stylesheet" type="text/css" media="screen">
   </head>
 
 
   <body>
+    <div class='divHome'>
+      <h1 class="h1Home">Drones ao Resgate</h1>
+      <button class="btnHome" onclick="window.location.href='index.html'">Home</button>
+      <button class="btnHome" onclick="window.location.href='gallery.php'">Galeria web</button>
+    </div>
     <div class='home'>
       <h1>Galeria de imagens compartilhada</h1>
       <p>As imagens são apresentadas de acordo com a última modificação, da mais <b>recente</b> para a mais <b>antiga</b>.</p>
@@ -169,18 +202,18 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
         echo "<a href='".$defaultPath."?folderId=".$homeId."'><div class='back'><< zpátky</div></a><br>";
       }
       foreach($subfolderArray as $subfolder){
-		echo "<div class='ngal_album'>";
-        echo "<a href='".$defaultPath."?folderId=".$subfolder['id']."&homeId=".$homeId."'>";
-		$thumbnailId = retrieveOneImageId($subfolder['id'], $apiKey)[0];
-		$thumbnailWidth = 200;
-		if (empty($thumbnailId)) {
-			$thumbnailSrc = $defaultFolderImageUrl;
-		} else {
-			$thumbnailSrc = "https://drive.google.com/thumbnail?authuser=0&sz=w".$thumbnailWidth."&id=".$thumbnailId;
-		}
-		if (showThumbnail){
-			echo "<div class='ngal_foto'><img src='".$thumbnailSrc."' width='".$thumbnailWidth."'></div>";
-		}
+        echo "<div class='ngal_album'>";
+            echo "<a href='".$defaultPath."?folderId=".$subfolder['id']."&homeId=".$homeId."'>";
+        $thumbnailId = retrieveOneImageId($subfolder['id'], $apiKey)[0];
+        $thumbnailWidth = 200;
+        if (empty($thumbnailId)) {
+          $thumbnailSrc = $defaultFolderImageUrl;
+        } else {
+          $thumbnailSrc = "https://drive.google.com/thumbnail?authuser=0&sz=w".$thumbnailWidth."&id=".$thumbnailId;
+        }
+        if (showThumbnail){
+          echo "<div class='ngal_foto'><img src='".$thumbnailSrc."' width='".$thumbnailWidth."'></div>";
+        }
         echo "<div class='ngal_content'>";
         //echo "<a href='".$defaultPath."?folderId=".$subfolder['id']."&homeId=".$homeId."'>".$subfolder['name']."</a>";
         echo "<div class='album-name'>".$subfolder["name"]."</div>";
@@ -202,6 +235,16 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
     jQuery("#nanoGalleryWrapperDrive").nanoGallery({
       items: [
             <?php //PHP code -----------------------------------------------------------------------------------
+
+            //TESTE
+            $fileArrayToDisplay = retrieveFilesArray($folderId, $apiKey);
+            $filteredFileArrayToDisplay = orderImagesByTime(filterByMimeType($fileArrayToDisplay, "image/"));
+            $fileArrayNamesToDisplay = getfileNames($filteredFileArrayToDisplay);
+            $fileArrayDatesToDisplay = getfileDates($filteredFileArrayToDisplay);
+
+            $counterLoop = 0;
+            //
+
             foreach($imageIds as $id) {
               echo "{"."\r\n";
               echo "  src: 'https://drive.google.com/thumbnail?authuser=0&sz=h".$imageHeight."&id=".$id."',\r\n";
@@ -211,10 +254,19 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
               echo "  srcLA: 'https://drive.google.com/thumbnail?authuser=0&sz=h".$imageHeightLA."&id=".$id."',\r\n";
               echo "  srcXL: 'https://drive.google.com/thumbnail?authuser=0&sz=h".$imageHeightXL."&id=".$id."',\r\n";
               echo "  srct: 'https://drive.google.com/thumbnail?authuser=0&sz=h".$thumbnailHeight."&id=".$id."',\r\n";
-              echo "  title: '',\r\n";
-              echo "  description : ''\r\n";
+
+              //TESTE
+              echo "  title: '".$fileArrayNamesToDisplay[$counterLoop]."',\r\n";
+              echo "  description : '".$fileArrayDatesToDisplay[$counterLoop]."',\r\n";
+              echo "  i18n : { thumbnailImageDescription: '".$fileArrayDatesToDisplay[$counterLoop]."'}\r\n";
               echo "},\r\n";
+              $counterLoop += 1; 
+              //
             }
+
+            //TESTE
+            //debug_to_console($fileArrayToDisplay);
+
             // END OF PHP -----------------------------------------------------------------------------------------
             ?>
         ],
@@ -226,7 +278,7 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
       thumbnailGutterWidth : 0,
       thumbnailGutterHeight : 0,
       slideshowDelay: 5000,
-      i18n: { thumbnailImageDescription: 'Image', thumbnailAlbumDescription: 'Album' },
+      //i18n: { thumbnailImageDescription: 'Image', thumbnailAlbumDescription: 'Album' },
       thumbnailLabel: { display: true, position: 'overImageOnMiddle', align: 'center' }
 
     });

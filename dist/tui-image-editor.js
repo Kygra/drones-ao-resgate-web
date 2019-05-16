@@ -2045,8 +2045,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * Get data url
 	         * @param {Object} options - options for toDataURL
-	         *   @param {String} [options.format=png] The format of the output image. Either "jpeg" or "png"
-	         *   @param {Number} [options.quality=1] Quality level (0..1). Only used for jpeg.
+	         *   @param {String} [options.format=jpeg] The format of the output image. Either "jpeg" or "png"
+	         *   @param {Number} [options.quality=0.7] Quality level (0..1). Only used for jpeg.
 	         *   @param {Number} [options.multiplier=1] Multiplier to scale by
 	         *   @param {Number} [options.left] Cropping left offset. Introduced in fabric v1.2.14
 	         *   @param {Number} [options.top] Cropping top offset. Introduced in fabric v1.2.14
@@ -11956,7 +11956,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    alert('This browser does not support file-api');
 	                }
 
-	                _this.ui.initializeImgUrl = URL.createObjectURL(file);
+					_this.ui.initializeImgUrl = URL.createObjectURL(file);
+					
 	                _this.loadImageFromFile(file).then(function () {
 	                    exitCropOnAction();
 	                    _this.clearUndoStack();
@@ -11964,18 +11965,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                })['catch'](function (message) {
 	                    return Promise.reject(message);
 	                });
-	            },
+				},
+
 	            download: function download() {
-					var dataURL = _this.toDataURL();
+					var options = {
+						format: "jpeg",
+						quality: 0.8
+					};
+					var dataURL = _this.toDataURL(options);
 	                var imageName = _this.getImageName();
 	                var blob = void 0,
 	                    type = void 0,
 						w = void 0;
 
-					//console.log("dataURL :"+ dataURL);
-
 	                if (_util2.default.isSupportFileApi() && window.saveAs) {
-	                    blob = _util2.default.base64ToBlob(dataURL);
+						blob = _util2.default.base64ToBlob(dataURL);	
 	                    type = blob.type.split('/')[1];
 	                    if (imageName.split('.').pop() !== type) {
 	                        imageName += '.' + type;
@@ -11987,7 +11991,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 				},
 				upload: function upload() {
-	                var dataURL = _this.toDataURL();
+					var options = {
+						format: "jpeg",
+						quality: 0.8
+					};
+	                var dataURL = _this.toDataURL(options);
 	                var imageName = _this.getImageName();
 	                var blob = void 0,
 	                    type = void 0,
@@ -11995,11 +12003,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                if (_util2.default.isSupportFileApi()) {
 	                    blob = _util2.default.base64ToBlob(dataURL);
-	                    //type = blob.type.split('/')[1];
-	                    //if (imageName.split('.').pop() !== type) {
-	                    //    imageName += '.' + type;
-	                    //}
-						//saveAs(blob, imageName); // eslint-disable-line
 						uploadFile(blob, imageName);
 	                } else {
 	                    w = window.open();
@@ -13527,7 +13530,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var context = canvas.getContext('2d');
 	                context.drawImage(img, 0, 0);
 	                callback(canvas);
-	            };
+				};
 	        }
 	    }, {
 	        key: 'getImgdata',
@@ -14125,8 +14128,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * To data url from canvas
 	         * @param {Object} options - options for toDataURL
-	         *   @param {String} [options.format=png] The format of the output image. Either "jpeg" or "png"
-	         *   @param {Number} [options.quality=1] Quality level (0..1). Only used for jpeg.
+	         *   @param {String} [options.format=jpeg] The format of the output image. Either "jpeg" or "png"
+	         *   @param {Number} [options.quality=0.7] Quality level (0..1). Only used for jpeg.
 	         *   @param {Number} [options.multiplier=1] Multiplier to scale by
 	         *   @param {Number} [options.left] Cropping left offset. Introduced in fabric v1.2.14
 	         *   @param {Number} [options.top] Cropping top offset. Introduced in fabric v1.2.14

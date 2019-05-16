@@ -33,8 +33,6 @@
 
     <script src="https://apis.google.com/js/api.js"></script>
 
-
-
     <script>
       var urlParam = location.search.split('url=')[1];
       var urlImage = '';
@@ -59,9 +57,7 @@
       function execute() {
         return gapi.client.drive.files.get({
           "fileId": urlParam,
-          "fields": "thumbnailLink, name, imageMediaMetadata"
-
-          //"fields": "thumbnailLink"
+          "fields": "thumbnailLink, name, createdTime, modifiedTime, imageMediaMetadata"
         })
             .then(function(response) {
                 // Handle the results here (response.result has the parsed body).
@@ -72,7 +68,6 @@
                 urlImage = urlImage.replace(/=.*/g, "=w5000");
                 console.log(urlImage);
 
-                //PENSAR EM FORMA MELHOR DE ALOCAR ESTE CÓDIGO FORA DAQUI?
                 //Image editor
                 imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
                     includeUI: {
@@ -96,9 +91,6 @@
         imageEditor.ui.resizeEditor();
       }
     
-      function botaoSalvar(){
-        //window.location.href='gallery.php';
-      }
       function botaoGaleria(){
         window.location.href='gallery.php';
       }

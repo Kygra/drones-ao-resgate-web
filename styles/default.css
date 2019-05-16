@@ -1,8 +1,16 @@
+html {
+	background-color: #00539F;
+}
+
 body {
 	background-color: #00539F;
 	font-family: 'Lato', sans-serif;
-    font-weight: normal;
-    font-style: normal;
+	font-weight: normal;
+	font-style: normal;
+}
+
+h1 {
+	font-weight: 700;
 }
 
 h4 {
@@ -14,8 +22,9 @@ h4 {
 }
 
 .home {
+	font-weight: 700 !important;
 	color:white;
-	margin-left: 35px;
+	text-align: center;
 }
 
 .ngal_album {
@@ -31,8 +40,8 @@ h4 {
 
 .album-name {
 	font-family: 'Lato', sans-serif;
-    font-weight: normal;
-    font-style: normal;
+	font-weight: normal;
+	font-style: normal;
 	font-size: x-large;
 }
 
@@ -41,7 +50,7 @@ h4 {
 }
 
 .ngal_album a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .ngal_album img{
@@ -58,3 +67,90 @@ h4 {
 	margin: 10px;
 	float:left;
 }
+
+.divHome {
+	width: 650px !important;
+	margin: 0 auto;
+	padding: 0 20px 20px 20px;
+	border: 5px solid black;
+}
+
+.h1Home {
+	font-family: 'Lato', sans-serif;
+	font-size: 54px;
+	font-weight: 700;
+	text-align: center;
+	margin: 0;
+	padding: 20px 0;
+	color: white;
+	text-shadow: 3px 3px 1px black;
+  }
+
+.btnHome {
+	align-items: flex-start;
+	background-color: rgb(255, 255, 255);
+	border-bottom-color: rgb(221, 221, 221);
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-image-outset: 0px;
+	border-image-repeat: stretch;
+	border-image-slice: 100%;
+	border-image-source: none;
+	border-image-width: 1;
+	border-left-color: rgb(221, 221, 221);
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: rgb(221, 221, 221);
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: rgb(221, 221, 221);
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-top-style: solid;
+	border-top-width: 1px;
+	box-sizing: border-box;
+	color: rgb(34, 34, 34);
+	cursor: pointer;
+	display: inline-block;
+	font-family: "Lato", sans-serif;
+	font-size: 14px;
+	font-stretch: 100%;
+	font-style: normal;
+	font-variant-caps: normal;
+	font-variant-east-asian: normal;
+	font-variant-ligatures: normal;
+	font-variant-numeric: normal;
+	font-weight: 700;
+	height: 40px;
+	letter-spacing: 0.3px;
+	line-height: 40px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 4px;
+	margin-top: 0px;
+	outline-color: rgb(34, 34, 34);
+	outline-style: none;
+	outline-width: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	position: relative;
+	text-align: center;
+	text-indent: 0px;
+	text-rendering: auto;
+	text-shadow: none;
+	text-transform: none;
+	user-select: none;
+	vertical-align: middle;
+	width: 120px;
+	word-spacing: 0px;
+}
+  
+  /* Darker background on mouse-over */
+.btnHome:hover {
+	background-color: rgb(221, 221, 221);
+}
+
