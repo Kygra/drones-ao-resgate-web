@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Drones ao Resgate - Mapa</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="styles/default.css" rel="stylesheet" type="text/css" media="screen">    
+  </head>
+  <body>
+    <div class="wrapperMap">
+        <div class="headerMap">
+            <div class="divHome">    
+                <h1 class="h1Home">Drones ao Resgate</h1>
+                <button class="btnHome" onclick="window.location.href='index.html'">Home</button>
+                <button class="btnHome" onclick="window.location.href='gallery.php'">Galeria web</button>
+                <button class="btnHome" onclick="window.location.href='maps.html'">Mapa</button>
+            </div>
+            <div class='home'>
+                <h1>Mapa com imagens exibidas pela localização</h1>
+                <p>Instruções: Para ver detalhes de uma imagem, clique no marcador. Para abrir a imagem em tela cheia, clique sobre a thumbnail.</p>
+            </div>
+        </div>
+        <div class="mainMap">
+            <!--The div element for the map -->
+            <div id="map"></div>
+        </div>
+        <div class="footerMap"></div>
+    </div>
+  </body>
+</html>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy3-H6gDfiq4zEq10JuRoJZUQISVWFR2s"></script>
+<script type="text/javascript" src="js/moment.min.js"></script>
+
+<script>
+
+    /**
+     * Sample JavaScript code for drive.files.get
+     * See instructions for running APIs Explorer code samples locally:
+     * https://developers.google.com/explorer-help/guides/code_samples#javascript
+     */
+    function loadClient() {
+        gapi.client.setApiKey("AIzaSyDy3-H6gDfiq4zEq10JuRoJZUQISVWFR2s");
+        return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/drive/v3/rest")
+            .then(function() { 
+                console.log("GAPI client loaded for API"); 
+                execute();
+            },
+            function(err) { console.error("Error loading GAPI client for API", err); });
+    }
+    // Make sure the client is loaded before calling this method.
+    function execute() {
+        return gapi.client.drive.files.list({
+        "orderBy": "modifiedTime desc",
+        "q": "'1KujX9HlGo-gvHJcpNB9RKBkt5wN44MA-' in parents and trashed = false",
+        "fields": "files(id, name, thumbnailLink, modifiedTime, imageMediaMetadata)"
+        })
+            .then(function(response) {
+                // Handle the results here (response.result has the parsed body).
+                //console.log("response.result: " + response.result);
+                initMap(response.result.files);
+            },
+            function(err) { console.error("Execute error", err); });
+    }
+    gapi.load("client", loadClient);
+
+    // Initialize and add the map
+    function initMap(items) {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          center: {lat: items[0].imageMediaMetadata.location.latitude, lng: items[0].imageMediaMetadata.location.longitude}
+        });
+        setMarkers(map, items);
+    }
+
+    // Set the markers
+    function setMarkers(map, items){
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var labelIndex = 0;
+
+        var contentString = [];
+
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+
+            let converted_time = new Date(item.modifiedTime); 
+            let formatted_date = moment().format('DD/MM/YYYY HH:mm:ss');
+
+            var contentStringtmp = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<img class="mapImage" src="' + item.thumbnailLink + '" alt="' + item.name + '" onclick="window.location.href=\'gallery.php#nanogallery/nanoGalleryWrapperDrive/0/' + (i+1) + '\'">' +
+            '<div id="bodyContent">'+
+            '<p><b>Nome: </b>' + item.name + '<br>' +
+            '<b>Modificado em: </b>' + item.modifiedTime + '</p>' +
+            '</div>'+
+            '</div>';
+            contentString.push(contentStringtmp);
+
+            var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+            var marker = new google.maps.Marker({
+                position: {lat: item.imageMediaMetadata.location.latitude, lng: item.imageMediaMetadata.location.longitude},
+                map: map,
+                title: item.name,
+                label: labels[labelIndex++ % labels.length]
+                //zIndex: beach[3]
+            });
+
+            // Add info window to marker    
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infoWindow.setContent(contentString[i]);
+                    infoWindow.open(map, marker);
+                }
+            })(marker, i));
+        }
+    }
+</script>
+
+

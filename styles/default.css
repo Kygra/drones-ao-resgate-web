@@ -154,3 +154,46 @@ h4 {
 	background-color: rgb(221, 221, 221);
 }
 
+.mapImage:hover {
+    cursor: pointer;
+}
+
+/* Set the size of the div element that contains the map */
+#map {
+	height: 500px;
+	width: 100%;  /* The width is the width of the web page */
+}
+
+.wrapperMap {
+    height: 100%;
+    display: table;
+    width: 100%;
+    text-align: center;
+}
+  
+.headerMap {
+    display: table-row;
+    height: 1px;
+
+}
+  
+.mainMap {
+    height: 100%;
+    display: table;
+    width: 100%;
+}
+  
+.boxMap {
+    display: table-cell;
+}
+  
+.sidebarMap {
+    width: 100px;
+
+}
+  
+.footerMap {
+    display: table-row;
+    height:1px;
+
+}

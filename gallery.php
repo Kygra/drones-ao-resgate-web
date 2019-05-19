@@ -32,7 +32,7 @@ $imageHeightXL = 1400;
 
 function retrieveFilesArray($folderId, $apiKey){
   // returns all files in GDrive folder
-  $request = 'https://www.googleapis.com/drive/v3/files?pageSize=999&orderBy=name&q=%27'.$folderId.'%27+in+parents&fields=files(id%2CimageMediaMetadata%2Ftime%2CmimeType%2Cname)&key='.$apiKey;
+  $request = 'https://www.googleapis.com/drive/v3/files?pageSize=999&orderBy=name&q=%27'.$folderId.'%27+in+parents&fields=files(id%2CimageMediaMetadata%2Ftime%2CimageMediaMetadata%2Flocation%2CmimeType%2Cname%2CmodifiedTime)&key='.$apiKey;
   $response = get_url_content($request);
   //echo $response;
   $response = json_decode($response, $assoc = true);
@@ -42,7 +42,7 @@ function retrieveFilesArray($folderId, $apiKey){
 
 function retrieveOneFileArray($folderId, $apiKey){ 
   // returns one file in GDrive folder
-  $request = 'https://www.googleapis.com/drive/v3/files?pageSize=1&q=%27'.$folderId.'%27+in+parents&fields=files(id%2CimageMediaMetadata%2Ftime%2CmimeType%2Cname)&key='.$apiKey;
+  $request = 'https://www.googleapis.com/drive/v3/files?pageSize=1&q=%27'.$folderId.'%27+in+parents&fields=files(id%2CimageMediaMetadata%2Ftime%2CimageMediaMetadata%2Flocation%2CmimeType%2Cname%2CmodifiedTime)&key='.$apiKey;
   $response = get_url_content($request);
   $response = json_decode($response, $assoc = true);
   $fileArray = $response['files'];
@@ -69,7 +69,7 @@ function getfileIds($fileArray){
   return $imageIdsArray;
 }
 
-//TESTE
+//ADAPTAÇÕES
 function getfileNames($fileArray){ 
   // returns array of all NAMES from input array
   $imageNamesArray = [];
@@ -78,13 +78,37 @@ function getfileNames($fileArray){
   }
   return $imageNamesArray;
 }
-function getfileDates($fileArray){ 
-  // returns array of all DATES from input array
+function getfileCreateDates($fileArray){ 
+  // returns array of all CREATE DATES from input array
   $imageDatesArray = [];
   foreach($fileArray as $file){
     $imageDatesArray[] = $file["imageMediaMetadata"]["time"];
   }
   return $imageDatesArray;
+}
+function getfileModifiedDates($fileArray){ 
+  // returns array of all MODIFIED DATES from input array
+  $imageDatesArray = [];
+  foreach($fileArray as $file){
+    $imageDatesArray[] = date("d/m/Y H:i:s", strtotime($file["modifiedTime"]));
+  }
+  return $imageDatesArray;
+}
+function getfileLocationsLat($fileArray){ 
+  // returns array of all LOCATIONS (LAT) from input array
+  $locationsArray = [];
+  foreach($fileArray as $file){
+    $locationsArray[] = $file["imageMediaMetadata"]["location"]["latitude"];
+  }
+  return $locationsArray;
+}
+function getfileLocationsLong($fileArray){ 
+  // returns array of all LOCATIONS (LONG) from input array
+  $locationsArray = [];
+  foreach($fileArray as $file){
+    $locationsArray[] = $file["imageMediaMetadata"]["location"]["longitude"];
+  }
+  return $locationsArray;
 }
 //
 
@@ -92,10 +116,11 @@ function orderImagesByTime($imageArray){
   // returns array of images sorted by the date of picture is taken and name
   $sortingArray = array();
   foreach ($imageArray as $key => $image) {
-    $sortingArray["time"][$key] = $image["imageMediaMetadata"]["time"];
+    //$sortingArray["time"][$key] = $image["imageMediaMetadata"]["time"];    
+    $sortingArray["time"][$key] = strtotime($image["modifiedTime"]);
     $sortingArray["name"][$key] = $image["name"];
   }
-  array_multisort($sortingArray["time"], SORT_ASC, $sortingArray["name"], SORT_ASC, $imageArray);
+  array_multisort($sortingArray["time"], SORT_DESC, $sortingArray["name"], SORT_ASC, $imageArray);
 
   return $imageArray;
 }
@@ -190,6 +215,7 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
       <h1 class="h1Home">Drones ao Resgate</h1>
       <button class="btnHome" onclick="window.location.href='index.html'">Home</button>
       <button class="btnHome" onclick="window.location.href='gallery.php'">Galeria web</button>
+      <button class="btnHome" onclick="window.location.href='maps.html'">Mapa</button>
     </div>
     <div class='home'>
       <h1>Galeria de imagens compartilhada</h1>
@@ -240,7 +266,10 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
             $fileArrayToDisplay = retrieveFilesArray($folderId, $apiKey);
             $filteredFileArrayToDisplay = orderImagesByTime(filterByMimeType($fileArrayToDisplay, "image/"));
             $fileArrayNamesToDisplay = getfileNames($filteredFileArrayToDisplay);
-            $fileArrayDatesToDisplay = getfileDates($filteredFileArrayToDisplay);
+            $fileArrayCreateDatesToDisplay = getfileCreateDates($filteredFileArrayToDisplay);
+            $fileArrayModifiedDatesToDisplay = getfileModifiedDates($filteredFileArrayToDisplay);
+            $fileArrayLocationLatitudeToDisplay = getfileLocationsLat($filteredFileArrayToDisplay);            
+            $fileArrayLocationLongitudeToDisplay = getfileLocationsLong($filteredFileArrayToDisplay);            
 
             $counterLoop = 0;
             //
@@ -257,8 +286,11 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
 
               //TESTE
               echo "  title: '".$fileArrayNamesToDisplay[$counterLoop]."',\r\n";
-              echo "  description : '".$fileArrayDatesToDisplay[$counterLoop]."',\r\n";
-              echo "  i18n : { thumbnailImageDescription: '".$fileArrayDatesToDisplay[$counterLoop]."'}\r\n";
+              //description é exibido no hover na galeria, e na imagem aberta
+              //echo "  description : 'Criado em: ".$fileArrayCreateDatesToDisplay[$counterLoop]."',\r\n";
+              echo "  description : 'Modificado em: ".$fileArrayModifiedDatesToDisplay[$counterLoop]."',\r\n"; 
+              echo "  customData : { latitude: '".$fileArrayLocationLatitudeToDisplay[$counterLoop]."' , longitude : '".$fileArrayLocationLongitudeToDisplay[$counterLoop]."'},\r\n";
+              //echo "  i18n : { thumbnailImageDescription: 'Modificado em: ".$fileArrayModifiedDatesToDisplay[$counterLoop]."'}\r\n"; // é acrescentado no description?
               echo "},\r\n";
               $counterLoop += 1; 
               //

@@ -776,6 +776,10 @@
 	content: '\e846';	/* .edit */
 }
 
+.nanogallery_theme_light #nanoGalleryViewer .toolbar .locationButton:after{
+	content: '\e82e';	/* .location */
+}
+
 .nanogallery_theme_light #nanoGalleryViewer .toolbar .closeButton:after{
 	content: '\e80a';	/* .icon-cancel */
 }

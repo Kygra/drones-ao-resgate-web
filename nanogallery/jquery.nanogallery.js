@@ -125,8 +125,8 @@ nanoGALLERY v5.10.3 release notes.
     openOnStart : '',
     viewerToolbar : {
       display:true, position : 'bottom', style : 'innerImage', autoMinimize:800,
-      standard:'minimizeButton , previousButton, pageCounter ,nextButton, editButton,playPauseButton,fullscreenButton,infoButton,linkOriginalButton,closeButton,label',
-      minimized:'minimizeButton,label'
+      standard:'minimizeButton , previousButton, pageCounter ,nextButton, editButton, locationButton, playPauseButton,fullscreenButton,infoButton,linkOriginalButton,closeButton, label, description',
+      minimized:'minimizeButton'
     },
     thumbnailAlignment : 'center',
     thumbnailWidth : 230, thumbnailHeight : 154,
@@ -7636,6 +7636,7 @@ nanoGALLERY v5.10.3 release notes.
       G.$E.conVwTb.find('.nextButton').on("touchstart click",function(e){ e.stopPropagation(); DisplayNextImagePart1(); });
       G.$E.conVwTb.find('.previousButton').on("touchstart click",function(e){ e.stopPropagation(); DisplayPreviousImage(); });
       G.$E.conVwTb.find('.editButton').on("touchstart click",function(e){ e.stopPropagation(); OpenImageEditor(); });
+      G.$E.conVwTb.find('.locationButton').on("touchstart click",function(e){ e.stopPropagation(); OpenImageLocation(); });
       G.$E.vwContent.find('.contentAreaNext').on("touchstart click",function(e){ e.stopPropagation(); DisplayNextImagePart1(); });
       G.$E.vwContent.find('.contentAreaPrevious').on("touchstart click",function(e){ e.stopPropagation(); DisplayPreviousImage(); });
 
@@ -7684,6 +7685,9 @@ nanoGALLERY v5.10.3 release notes.
           break;
         case 'editButton':
           r='<div class="ngbt editButton nGEvent"></div>';
+          break;
+        case 'locationButton':
+          r='<div class="ngbt locationButton nGEvent"></div>';
           break;
         case 'playPauseButton':
           r='<div class="ngbt playButton playPauseButton nGEvent"></div>';
@@ -7975,7 +7979,7 @@ nanoGALLERY v5.10.3 release notes.
       var t= ( curMode == 'std' ? G.O.viewerToolbar.standard : G.O.viewerToolbar.minimized);
 
       // standard elements
-      var v=['minimizeButton', 'previousButton', 'pageCounter', 'nextButton', 'playPauseButton', 'fullscreenButton', 'infoButton', 'linkOriginalButton', 'closeButton', 'label'];
+      var v=['minimizeButton', 'previousButton', 'pageCounter', 'nextButton', 'playPauseButton', 'fullscreenButton', 'infoButton', 'linkOriginalButton', 'label', 'description'];
       for( var i=0, l=v.length; i<l; i++) {
         if( v[i] == 'label' ) {
           if( G.$E.conVwTb.find('.title').text() == '' && G.$E.conVwTb.find('.description').text() == '' ) {
@@ -8033,14 +8037,28 @@ nanoGALLERY v5.10.3 release notes.
 
     // Open image editor
     function OpenImageEditor() {
+      //link anterior com bug, abria imagem menor
       console.log("G.O.urlDaImagemAtual : "+ G.O.urlDaImagemAtual);
+      //novo link corrigido, mas hoje abre imagem maior
+      console.log("G.GetCurrentViewedItem().responsiveURL() : "+ G.GetCurrentViewedItem().responsiveURL());
 
-      var re = /https?:\/\/drive.google.com\/.*id=/g;
-      var nameList = G.O.urlDaImagemAtual.split(re);      
+      var re = /https?:\/\/drive.google.com\/.*id=/g;      
+
+      var nameList = G.GetCurrentViewedItem().responsiveURL().split(re);      
       var idDaImagemAtual = nameList[1];
 
       //id unico da imagem passado para ser aberta pelo editor
       location.href = "editor.html?url=" + idDaImagemAtual;
+    }
+
+    // Open image location in Google Maps
+    function OpenImageLocation() {   
+      console.log(G.GetCurrentViewedItem());
+      var latitude = G.GetCurrentViewedItem().customData.latitude;
+      var longitude = G.GetCurrentViewedItem().customData.longitude;
+
+      //ABRE GOOGLE MAPS COM COORDENADAS DA IMAGEM https://maps.google.com/?q=<lat>,<lng>
+      location.href = "https://maps.google.com/?q=" + latitude + "," + longitude;
     }
 
     // Display image (and run animation)

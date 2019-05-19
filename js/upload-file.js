@@ -46,3 +46,54 @@ function uploadFile(file, imageName) {
     }
     fr.readAsDataURL(file);
 }
+
+function insertMetadata(dataURL, imageMetadata) {
+    try{
+        var mediadatafromdrive = imageMetadata;
+
+        var zeroth = {};
+        var exif = {};
+        var gps = {};
+        zeroth[piexif.ImageIFD.Make] = "Make";
+        zeroth[piexif.ImageIFD.XResolution] = [777, 1];
+        zeroth[piexif.ImageIFD.YResolution] = [777, 1];
+        zeroth[piexif.ImageIFD.Software] = "Piexifjs";
+
+        console.log(mediadatafromdrive.time);
+        console.log(mediadatafromdrive.location.latitude);
+        console.log(mediadatafromdrive.location.longitude);
+
+        exif[piexif.ExifIFD.DateTimeOriginal] = mediadatafromdrive.time;
+        exif[piexif.ExifIFD.LensMake] = "LensMake";
+        exif[piexif.ExifIFD.Sharpness] = 777;
+        exif[piexif.ExifIFD.LensSpecification] = [[1, 1], [1, 1], [1, 1], [1, 1]];
+        gps[piexif.GPSIFD.GPSVersionID] = [7, 7, 7, 7];
+        gps[piexif.GPSIFD.GPSDateStamp] = mediadatafromdrive.time;
+
+        var lat = mediadatafromdrive.location.latitude;
+        var lng = mediadatafromdrive.location.longitude;
+        gps[piexif.GPSIFD.GPSLatitudeRef] = lat < 0 ? 'S' : 'N';
+        gps[piexif.GPSIFD.GPSLongitudeRef] = lng < 0 ? 'W' : 'E';
+        lat = Math.abs(lat);
+        lng = Math.abs(lng);
+        gps[piexif.GPSIFD.GPSLatitude] = piexif.GPSHelper.degToDmsRational(lat);
+        gps[piexif.GPSIFD.GPSLongitude] = piexif.GPSHelper.degToDmsRational(lng);
+
+        var exifObj = {"0th":zeroth, "Exif":exif, "GPS":gps};
+
+        // get exif binary as "string" type
+        var exifbytes = piexif.dump(exifObj);
+
+        // insert exif binary into JPEG binary(DataURL)
+        var inserted = piexif.insert(exifbytes, dataURL);
+
+        var exifObj = piexif.load(inserted);            
+        console.log("exif: " + exifObj);
+
+        //RETORNA IMAGEM COM METADADO: returns JPEG as binary as string.
+        return inserted;
+    } catch(err){
+        console.log("ERRO! :" + err);
+        return "ERROR";
+    }
+}

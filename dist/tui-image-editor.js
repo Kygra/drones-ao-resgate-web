@@ -5623,7 +5623,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			downloadButtonStyle = _ref.downloadButtonStyle,
 			saveButtonStyle = _ref.saveButtonStyle,
 	        submenuStyle = _ref.submenuStyle;
-	    return "\n    <div class=\"tui-image-editor-main-container\" style=\"" + commonStyle + "\">\n        <div class=\"tui-image-editor-header\" style=\"" + headerStyle + "\">\n            <div class=\"tui-image-editor-header-logo\">\n                <img src=\"" + biImage + "\" />\n            </div>\n            <div class=\"tui-image-editor-header-buttons\">\n                <button class=\"btn\" style=\"" + loadButtonStyle + "\" onclick=\"botaoGaleria()\">Galeria</button>\n                <button class=\"tui-image-editor-download-btn\" style=\"" + loadButtonStyle + "\">\n                    Download\n                </button>\n            <button class=\"tui-image-editor-upload-btn\" onclick=\"botaoSalvar()\" style=\"" + saveButtonStyle + "\">Salvar e voltar para Galeria</button>\n</div>\n        </div>\n        <div class=\"tui-image-editor-main\">\n            <div class=\"tui-image-editor-submenu\">\n                <div class=\"tui-image-editor-submenu-style\" style=\"" + submenuStyle + "\"></div>\n            </div>\n            <div class=\"tui-image-editor-wrap\">\n                <div class=\"tui-image-editor-size-wrap\">\n                    <div class=\"tui-image-editor-align-wrap\">\n                        <div class=\"tui-image-editor\"></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n";
+	    return "\n    <div class=\"tui-image-editor-main-container\" style=\"" + commonStyle + "\">\n        <div class=\"tui-image-editor-header\" style=\"" + headerStyle + "\">\n            <div class=\"tui-image-editor-header-logo\">\n                <img src=\"" + biImage + "\" />\n            </div>\n            <div class=\"tui-image-editor-header-buttons\">\n                <button class=\"btn\" style=\"" + loadButtonStyle + "\" onclick=\"botaoGaleria()\">Galeria</button>\n                <button class=\"tui-image-editor-download-btn\" style=\"" + loadButtonStyle + "\">\n                    Download\n                </button>\n            <button class=\"tui-image-editor-upload-btn\" style=\"" + saveButtonStyle + "\">Salvar e voltar para Galeria</button>\n</div>\n        </div>\n        <div class=\"tui-image-editor-main\">\n            <div class=\"tui-image-editor-submenu\">\n                <div class=\"tui-image-editor-submenu-style\" style=\"" + submenuStyle + "\"></div>\n            </div>\n            <div class=\"tui-image-editor-wrap\">\n                <div class=\"tui-image-editor-size-wrap\">\n                    <div class=\"tui-image-editor-align-wrap\">\n                        <div class=\"tui-image-editor\"></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n";
 	};
 
 /***/ }),
@@ -5645,7 +5645,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			loadButtonStyle = _ref.loadButtonStyle,
 			saveButtonStyle = _ref.saveButtonStyle,
 	        downloadButtonStyle = _ref.downloadButtonStyle;
-	    return "\n    <div class=\"tui-image-editor-controls\">\n        <div class=\"tui-image-editor-controls-logo\">\n            <img src=\"" + biImage + "\" />\n        </div>\n        <ul class=\"tui-image-editor-menu\">\n            <li id=\"tie-btn-undo\" class=\"tui-image-editor-item\" title=\"Undo\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-undo\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-undo\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-undo\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-redo\" class=\"tui-image-editor-item\" title=\"Redo\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-redo\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-redo\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-redo\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-reset\" class=\"tui-image-editor-item\" title=\"Reset\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-reset\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-reset\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-reset\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li class=\"tui-image-editor-item\">\n                <div class=\"tui-image-editor-icpartition\"></div>\n            </li>\n            <li id=\"tie-btn-delete\" class=\"tui-image-editor-item\" title=\"Delete\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-delete\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-delete\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-delete\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-delete-all\" class=\"tui-image-editor-item\" title=\"Delete-all\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-delete-all\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-delete-all\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-delete-all\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li class=\"tui-image-editor-item\">\n                <div class=\"tui-image-editor-icpartition\"></div>\n            </li>\n        </ul>\n\n        <div class=\"tui-image-editor-controls-buttons\">\n            <button class=\"btn\" style=\"" + loadButtonStyle + "\" onclick=\"botaoGaleria()\">Galeria</button>\n                <button class=\"tui-image-editor-download-btn\" style=\"" + loadButtonStyle + "\">\n                    Download\n                </button>\n            <button class=\"tui-image-editor-upload-btn\" onclick=\"botaoSalvar()\" style=\"" + saveButtonStyle + "\" >Salvar e voltar para Galeria</button>\n        </div>\n    </div>\n";
+	    return "\n    <div class=\"tui-image-editor-controls\">\n        <div class=\"tui-image-editor-controls-logo\">\n            <img src=\"" + biImage + "\" />\n        </div>\n        <ul class=\"tui-image-editor-menu\">\n            <li id=\"tie-btn-undo\" class=\"tui-image-editor-item\" title=\"Undo\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-undo\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-undo\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-undo\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-redo\" class=\"tui-image-editor-item\" title=\"Redo\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-redo\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-redo\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-redo\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-reset\" class=\"tui-image-editor-item\" title=\"Reset\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-reset\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-reset\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-reset\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li class=\"tui-image-editor-item\">\n                <div class=\"tui-image-editor-icpartition\"></div>\n            </li>\n            <li id=\"tie-btn-delete\" class=\"tui-image-editor-item\" title=\"Delete\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-delete\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-delete\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-delete\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li id=\"tie-btn-delete-all\" class=\"tui-image-editor-item\" title=\"Delete-all\">\n                <svg class=\"svg_ic-menu\">\n                    <use xlink:href=\"" + normal.path + "#" + normal.name + "-ic-delete-all\" class=\"enabled\"/>\n                    <use xlink:href=\"" + disabled.path + "#" + disabled.name + "-ic-delete-all\" class=\"normal\"/>\n                    <use xlink:href=\"" + hover.path + "#" + hover.name + "-ic-delete-all\" class=\"hover\"/>\n                </svg>\n            </li>\n            <li class=\"tui-image-editor-item\">\n                <div class=\"tui-image-editor-icpartition\"></div>\n            </li>\n        </ul>\n\n        <div class=\"tui-image-editor-controls-buttons\">\n            <button class=\"btn\" style=\"" + loadButtonStyle + "\" onclick=\"botaoGaleria()\">Galeria</button>\n                <button class=\"tui-image-editor-download-btn\" style=\"" + loadButtonStyle + "\">\n                    Download\n                </button>\n            <button class=\"tui-image-editor-upload-btn\" style=\"" + saveButtonStyle + "\" >Salvar e voltar para Galeria</button>\n        </div>\n    </div>\n";
 	};
 
 /***/ }),
@@ -11967,29 +11967,47 @@ return /******/ (function(modules) { // webpackBootstrap
 	                });
 				},
 
+				//DOWNLOAD MODIFICADO
 	            download: function download() {
 					var options = {
 						format: "jpeg",
 						quality: 0.8
 					};
 					var dataURL = _this.toDataURL(options);
-	                var imageName = _this.getImageName();
-	                var blob = void 0,
-	                    type = void 0,
+					var imageName = _this.getImageName();
+					var blob = void 0,
+						type = void 0,
 						w = void 0;
 
-	                if (_util2.default.isSupportFileApi() && window.saveAs) {
-						blob = _util2.default.base64ToBlob(dataURL);	
-	                    type = blob.type.split('/')[1];
-	                    if (imageName.split('.').pop() !== type) {
-	                        imageName += '.' + type;
-	                    }
-	                    saveAs(blob, imageName); // eslint-disable-line
-	                } else {
-	                    w = window.open();
-	                    w.document.body.innerHTML = '<img src=\'' + dataURL + '\'>';
-	                }
+					var fileId = location.search.split('url=')[1];
+
+					gapi.client.drive.files.get({
+						"fileId": fileId,
+						"fields": "name, createdTime, modifiedTime, imageMediaMetadata"
+					})
+					.then(function(response) {
+						var imageMetadata = response.result.imageMediaMetadata;
+						console.log("getMetadataFromDrive: " + imageMetadata);
+						
+						dataURL = insertMetadata(dataURL, imageMetadata);
+						
+						//SEGUE PASSOS PARA DOWNLOAD	
+						if (_util2.default.isSupportFileApi() && window.saveAs) {
+							blob = _util2.default.base64ToBlob(dataURL);	
+							type = blob.type.split('/')[1];
+							if (imageName.split('.').pop() !== type) {
+								imageName += '.' + type;
+							}
+							saveAs(blob, imageName); // eslint-disable-line
+						} else {
+							w = window.open();
+							w.document.body.innerHTML = '<img src=\'' + dataURL + '\'>';
+						}
+					},
+					function(err) { console.error("Execute error", err); });
 				},
+
+				//UPLOAD MODIFICADO
 				upload: function upload() {
 					var options = {
 						format: "jpeg",
@@ -12001,14 +12019,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    type = void 0,
 						w = void 0;
 
-	                if (_util2.default.isSupportFileApi()) {
-	                    blob = _util2.default.base64ToBlob(dataURL);
-						uploadFile(blob, imageName);
-	                } else {
-	                    w = window.open();
-	                    w.document.body.innerHTML = '<img src=\'' + dataURL + '\'>';
-					}
-
+					var fileId = location.search.split('url=')[1];
+					
+					gapi.client.drive.files.get({
+						"fileId": fileId,
+						"fields": "name, createdTime, modifiedTime, imageMediaMetadata"
+					})
+					.then(function(response) {
+						var imageMetadata = response.result.imageMediaMetadata;
+						console.log("getMetadataFromDrive: " + imageMetadata);
+			
+						dataURL = insertMetadata(dataURL, imageMetadata);
+			
+						//SEGUE PASSOS PARA UPLOAD	
+						if (_util2.default.isSupportFileApi()) {
+							blob = _util2.default.base64ToBlob(dataURL);
+							uploadFile(blob, imageName);
+						} else {
+							w = window.open();
+							w.document.body.innerHTML = '<img src=\'' + dataURL + '\'>';
+						}
+					},
+					function(err) { console.error("Execute error", err); });
 	            }
 	        }, this._commonAction());
 	    },
