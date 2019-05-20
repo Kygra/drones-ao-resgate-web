@@ -2,15 +2,34 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Drones ao Resgate</title>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link href="styles/default.css" rel="stylesheet" type="text/css">    
+    <link href="styles/default.css" rel="stylesheet" type="text/css" media="screen">
 
-  </head>
-  <body class="divHome">
-    <h1 class="h1Home">Drones ao Resgate</h1>
-    <button class="btnHome" onclick="window.location.href='index.html'">Home</button>
-    <button class="btnHome" onclick="window.location.href='gallery.php'">Galeria web</button>
-    <button class="btnHome" onclick="window.location.href='maps.html'">Mapa</button>
-  </body>
+</head>
+<body> 
+  <div class="roundcontent" style="width: 96%; margin: 2%; margin-top: 10px;">
+    <div class="wrapperMap">
+        <div class="headerMap">
+            <div class="divHome">    
+                <h1 class="h1Home" onclick="window.location.href='index.html'">Drones ao Resgate</h1>
+                <button class="btnHome" onclick="window.location.href='gallery.php'">Galeria</button>
+                <button class="btnHome" onclick="window.location.href='maps.html'">Mapa</button>
+            </div>
+        </div>
+        <div class="mainMap">
+          <img id="mosaic" class="mapImage" src="/images/mosaico.png" alt="Mosaico Galeria de Imagens" onclick="window.location.href='gallery.php'" >
+        </div>
+        <div class="footerMap">
+          <div id="autoria">
+            <p>Um projeto de Henrique Romano Correia, 2019. <a href="https://github.com/Kygra/drones-ao-resgate-web">Github</a></p>
+          </div>          
+        </div>
+    </div>
+  </div>
+</body>
 </html>

@@ -1,9 +1,9 @@
 html {
-	background-color: #00539F;
+	background-color: #0085ff;
 }
 
 body {
-	background-color: #00539F;
+	background-color: #0085ff;
 	font-family: 'Lato', sans-serif;
 	font-weight: normal;
 	font-style: normal;
@@ -69,10 +69,17 @@ h4 {
 }
 
 .divHome {
-	width: 650px !important;
 	margin: 0 auto;
 	padding: 0 20px 20px 20px;
 	border: 5px solid black;
+	text-align: center;
+	width: 550px;
+}
+
+@media only screen and (max-width: 600px) {
+	.divHome {
+		width: 100%;
+	}
 }
 
 .h1Home {
@@ -84,7 +91,10 @@ h4 {
 	padding: 20px 0;
 	color: white;
 	text-shadow: 3px 3px 1px black;
-  }
+}
+.h1Home:hover {
+    cursor: pointer;
+}
 
 .btnHome {
 	align-items: flex-start;
@@ -160,8 +170,20 @@ h4 {
 
 /* Set the size of the div element that contains the map */
 #map {
-	height: 500px;
+	height: 600px;
 	width: 100%;  /* The width is the width of the web page */
+}
+
+#mosaic {
+	height: 640px;
+	margin-top: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+	#mosaic {
+		width: inherit;
+		height: auto;
+	}
 }
 
 .wrapperMap {
@@ -174,7 +196,6 @@ h4 {
 .headerMap {
     display: table-row;
     height: 1px;
-
 }
   
 .mainMap {
@@ -194,6 +215,11 @@ h4 {
   
 .footerMap {
     display: table-row;
-    height:1px;
+	height:1px;
+	color: white;
+}
 
+#autoria {
+	margin-top: 10px;
+	font-size: 15px;
 }

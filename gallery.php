@@ -89,6 +89,7 @@ function getfileCreateDates($fileArray){
 function getfileModifiedDates($fileArray){ 
   // returns array of all MODIFIED DATES from input array
   $imageDatesArray = [];
+  date_default_timezone_set('America/Sao_Paulo');
   foreach($fileArray as $file){
     $imageDatesArray[] = date("d/m/Y H:i:s", strtotime($file["modifiedTime"]));
   }
@@ -209,19 +210,17 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
     <link href="styles/default.css" rel="stylesheet" type="text/css" media="screen">
   </head>
 
-
   <body>
-    <div class='divHome'>
-      <h1 class="h1Home">Drones ao Resgate</h1>
-      <button class="btnHome" onclick="window.location.href='index.html'">Home</button>
-      <button class="btnHome" onclick="window.location.href='gallery.php'">Galeria web</button>
-      <button class="btnHome" onclick="window.location.href='maps.html'">Mapa</button>
-    </div>
-    <div class='home'>
-      <h1>Galeria de imagens compartilhada</h1>
-      <p>As imagens são apresentadas de acordo com a última modificação, da mais <b>recente</b> para a mais <b>antiga</b>.</p>
-    </div>
-    <div class="roundcontent" style="width: 96%; margin: 2%; margin-top: 10px; padding: 10px;">
+    <div class="roundcontent" style="width: 96%; margin: 2%; margin-top: 10px;">
+      <div class='divHome'>
+        <h1 class="h1Home" onclick="window.location.href='index.html'">Drones ao Resgate</h1>
+        <button class="btnHome" onclick="window.location.href='gallery.php'">Galeria</button>
+        <button class="btnHome" onclick="window.location.href='maps.html'">Mapa</button>
+      </div>
+      <div class='home'>
+        <h1>Galeria de imagens compartilhada</h1>
+        <p>As imagens são apresentadas de acordo com a última modificação, da mais <b>recente</b> para a mais <b>antiga</b>.</p>
+      </div>
       <?php
       if($homeId !== $folderId){
         echo "<h4 class='title'>".$folderName."</h4>";
