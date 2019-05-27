@@ -22,7 +22,7 @@ $defaultFolderId = '1KujX9HlGo-gvHJcpNB9RKBkt5wN44MA-'; // id of photos root dir
 $defaultPath = 'http://drones-ao-resgate.appspot.com/gallery.php'; // default path of this gdrive_nanogallery.php file
 $defaultFolderImageUrl = ''; // url of png or jpg for default thumbnail
 $showThumbnail = false;
-$thumbnailHeight = 200;
+$thumbnailHeight = 300;
 $imageHeight = 700;
 $imageHeightXS = 400;
 $imageHeightSM = 600;
@@ -32,7 +32,7 @@ $imageHeightXL = 1400;
 
 function retrieveFilesArray($folderId, $apiKey){
   // returns all files in GDrive folder
-  $request = 'https://www.googleapis.com/drive/v3/files?pageSize=999&orderBy=name&q=%27'.$folderId.'%27+in+parents&fields=files(id%2CimageMediaMetadata%2Ftime%2CimageMediaMetadata%2Flocation%2CmimeType%2Cname%2CmodifiedTime)&key='.$apiKey;
+  $request = 'https://www.googleapis.com/drive/v3/files?pageSize=999&orderBy=name&q=%27'.$folderId.'%27+in+parents&fields=files(id%2CimageMediaMetadata%2Ftime%2CimageMediaMetadata%2Flocation%2CmimeType%2Cname%2CmodifiedTime%2Cdescription)&key='.$apiKey;
   $response = get_url_content($request);
   //echo $response;
   $response = json_decode($response, $assoc = true);
@@ -110,6 +110,14 @@ function getfileLocationsLong($fileArray){
     $locationsArray[] = $file["imageMediaMetadata"]["location"]["longitude"];
   }
   return $locationsArray;
+}
+function getfileDescriptions($fileArray){ 
+  // returns array of all DESCRIPTIONS from input array
+  $descriptionsArray = [];
+  foreach($fileArray as $file){
+    $descriptionsArray[] = $file["description"];
+  }
+  return $descriptionsArray;
 }
 //
 
@@ -220,6 +228,7 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
       <div class='home'>
         <h1>Galeria de imagens compartilhada</h1>
         <p>As imagens são apresentadas de acordo com a última modificação, da mais <b>recente</b> para a mais <b>antiga</b>.</p>
+        <p id="instructionMobile">Instrução para usuários mobile:<br>Mantenha seu aparelho na horizontal para melhor visualização.</p>
       </div>
       <?php
       if($homeId !== $folderId){
@@ -260,15 +269,16 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
     jQuery("#nanoGalleryWrapperDrive").nanoGallery({
       items: [
             <?php //PHP code -----------------------------------------------------------------------------------
-
-            //TESTE
+            
+            //
             $fileArrayToDisplay = retrieveFilesArray($folderId, $apiKey);
             $filteredFileArrayToDisplay = orderImagesByTime(filterByMimeType($fileArrayToDisplay, "image/"));
             $fileArrayNamesToDisplay = getfileNames($filteredFileArrayToDisplay);
             $fileArrayCreateDatesToDisplay = getfileCreateDates($filteredFileArrayToDisplay);
             $fileArrayModifiedDatesToDisplay = getfileModifiedDates($filteredFileArrayToDisplay);
             $fileArrayLocationLatitudeToDisplay = getfileLocationsLat($filteredFileArrayToDisplay);            
-            $fileArrayLocationLongitudeToDisplay = getfileLocationsLong($filteredFileArrayToDisplay);            
+            $fileArrayLocationLongitudeToDisplay = getfileLocationsLong($filteredFileArrayToDisplay); 
+            $fileArrayDescriptionsToDisplay = getfileDescriptions($filteredFileArrayToDisplay);            
 
             $counterLoop = 0;
             //
@@ -283,13 +293,15 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
               echo "  srcXL: 'https://drive.google.com/thumbnail?authuser=0&sz=h".$imageHeightXL."&id=".$id."',\r\n";
               echo "  srct: 'https://drive.google.com/thumbnail?authuser=0&sz=h".$thumbnailHeight."&id=".$id."',\r\n";
 
-              //TESTE
-              echo "  title: '".$fileArrayNamesToDisplay[$counterLoop]."',\r\n";
+              if($fileArrayDescriptionsToDisplay[$counterLoop]){
+                echo "  title: '".$fileArrayNamesToDisplay[$counterLoop]." - Comentário: ".$fileArrayDescriptionsToDisplay[$counterLoop]."',\r\n";
+              } else {
+                echo "  title: '".$fileArrayNamesToDisplay[$counterLoop]."',\r\n";
+              }
               //description é exibido no hover na galeria, e na imagem aberta
               //echo "  description : 'Criado em: ".$fileArrayCreateDatesToDisplay[$counterLoop]."',\r\n";
               echo "  description : 'Modificado em: ".$fileArrayModifiedDatesToDisplay[$counterLoop]."',\r\n"; 
               echo "  customData : { latitude: '".$fileArrayLocationLatitudeToDisplay[$counterLoop]."' , longitude : '".$fileArrayLocationLongitudeToDisplay[$counterLoop]."'},\r\n";
-              //echo "  i18n : { thumbnailImageDescription: 'Modificado em: ".$fileArrayModifiedDatesToDisplay[$counterLoop]."'}\r\n"; // é acrescentado no description?
               echo "},\r\n";
               $counterLoop += 1; 
               //
@@ -301,8 +313,8 @@ $imageIds = retrieveImageIds($folderId, $apiKey);
             // END OF PHP -----------------------------------------------------------------------------------------
             ?>
         ],
-      thumbnailWidth: 'auto',
-      thumbnailHeight: 200,
+      thumbnailWidth: 350,
+      thumbnailHeight: 'auto',
       theme: 'light',
       colorScheme: 'none',
       thumbnailHoverEffect: [{ name: 'labelAppear75', duration: 300 }],

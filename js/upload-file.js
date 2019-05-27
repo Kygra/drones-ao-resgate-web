@@ -24,6 +24,12 @@ function postToUpload(path, params, method='post') {
 }
 
 function uploadFile(file, imageName) {
+    $("#loadMe").modal({
+        backdrop: "static", //remove ability to close modal with click
+        keyboard: false, //remove option to close with keyboard
+        show: true //Display loader!
+    });   
+
     var destino = "https://script.google.com/macros/s/AKfycbwJ2FCx6osLIolP_3V6_1s01D5XJN3J3sw6_phml12qHjyYa7M/exec";
     var retorno = "http://" + window.location.hostname + "/gallery.php";
 
@@ -34,13 +40,16 @@ function uploadFile(file, imageName) {
         e.target.result
         var parametros = {};
 
-        //TESTE
         console.log(e.target);
 
         parametros.data = e.target.result.replace(/^.*,/, '');
         parametros.mimetype = e.target.result.match(/^.*(?=;)/)[0];
         parametros.filename = e.target.fileName;
         parametros.returnpage = retorno;
+        //Pego a descrição do campo atual, e limpo todos os pulos de linha que quebram o gallery.php depois na montagem
+        parametros.description = document.getElementById("message-text").value.replace(/(\r\n|\n|\r)/gm," s"); 
+        console.log("parametros.description: " + parametros.description);
+
 
         postToUpload(destino, parametros);           
     }

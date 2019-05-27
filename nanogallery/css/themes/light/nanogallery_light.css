@@ -838,6 +838,7 @@
 	-moz-box-sizing: content-box;
 	-o-box-sizing: content-box;
   background-color:initial;
+  white-space: normal;
 }
 
 .nanogallery_theme_light #nanoGalleryViewer .toolbar .label .title{

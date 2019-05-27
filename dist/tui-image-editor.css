@@ -51,6 +51,11 @@ body > textarea {
   width: 30%;
   padding: 17px;
 }
+
+.tui-image-editor-header-logo{
+  display: none;
+}
+
 .tui-image-editor-container .tui-image-editor-controls-logo,
 .tui-image-editor-container .tui-image-editor-controls-buttons {
   width: 270px;

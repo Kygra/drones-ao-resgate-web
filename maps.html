@@ -55,7 +55,7 @@
         return gapi.client.drive.files.list({
         "orderBy": "modifiedTime desc",
         "q": "'1KujX9HlGo-gvHJcpNB9RKBkt5wN44MA-' in parents and trashed = false",
-        "fields": "files(id, name, thumbnailLink, modifiedTime, imageMediaMetadata)"
+        "fields": "files(id, name, thumbnailLink, modifiedTime, imageMediaMetadata, description)"
         })
             .then(function(response) {
                 // Handle the results here (response.result has the parsed body).
@@ -77,15 +77,26 @@
         var data = [];
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
-            let formatted_date = moment(item.modifiedTime).format('DD/MM/YYYY HH:mm:ss');
+            let dataModificada = moment(item.modifiedTime).format('DD/MM/YYYY HH:mm:ss');  
+            //adaptar gravação exif no insertMetadata para buscar o time          
+            //let dataCriada = "";
+            //if(item.imageMediaMetadata.time){
+            //    dataCriada = moment(item.imageMediaMetadata.time).format('DD/MM/YYYY HH:mm:ss');
+            //}
+            let descricao = "";
+            if(item.description){
+                descricao = item.description;
+            }
 
             var contentStringtmp = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
-            '<img class="mapImage" src="' + item.thumbnailLink + '" alt="' + item.name + '" onclick="window.location.href=\'gallery.php#nanogallery/nanoGalleryWrapperDrive/0/' + (i+1) + '\'">' +
+            '<img class="mapImage" src="' + item.thumbnailLink + '" alt="' + item.name + '" onclick="window.open(\'http://'+ window.location.hostname + '/gallery.php#nanogallery/nanoGalleryWrapperDrive/0/'+ (i+1) +'\',\'_blank\');">' +
             '<div id="bodyContent">'+
             '<p><b>Nome: </b>' + item.name + '<br>' +
-            '<b>Modificado em: </b>' + formatted_date + '</p>' +
+            '<b>Modificado em: </b>' + dataModificada + '<br>' +
+            //'<b>Foto tirada em: </b>' + dataCriada + '<br>' +
+            '<b>Comentário: </b>' + descricao + '</p>'
             '</div>'+
             '</div>';
 

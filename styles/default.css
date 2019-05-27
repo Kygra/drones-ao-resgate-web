@@ -71,15 +71,9 @@ h4 {
 .divHome {
 	margin: 0 auto;
 	padding: 0 20px 20px 20px;
-	border: 5px solid black;
+	border: 2px solid #94bcda;
 	text-align: center;
 	width: 550px;
-}
-
-@media only screen and (max-width: 600px) {
-	.divHome {
-		width: 100%;
-	}
 }
 
 .h1Home {
@@ -175,15 +169,15 @@ h4 {
 }
 
 #mosaic {
-	height: 640px;
+	width: 100%;
+	height: 100%;
+	max-height: 640px;
 	margin-top: 10px;
 }
 
-@media only screen and (max-width: 600px) {
-	#mosaic {
-		width: inherit;
-		height: auto;
-	}
+#instructionMobile {
+	font-size: 16px;
+	display: none;
 }
 
 .wrapperMap {
@@ -204,13 +198,8 @@ h4 {
     width: 100%;
 }
   
-.boxMap {
-    display: table-cell;
-}
-  
 .sidebarMap {
     width: 100px;
-
 }
   
 .footerMap {
@@ -222,4 +211,98 @@ h4 {
 #autoria {
 	margin-top: 10px;
 	font-size: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+	.divHome {
+		width: 100%;
+	}
+	#mosaic {
+		width: inherit;
+		height: auto;
+	}
+	#instructionMobile {
+		display: block;
+	}
+}
+
+/** SPINNER CREATION **/
+
+.loader {
+	position: relative;
+	text-align: center;
+	margin: 15px auto 35px auto;
+	z-index: 9999;
+	display: block;
+	width: 80px;
+	height: 80px;
+	border: 10px solid rgba(0, 0, 0, .3);
+	border-radius: 50%;
+	border-top-color: #000;
+	animation: spin 1s ease-in-out infinite;
+	-webkit-animation: spin 1s ease-in-out infinite;
+}
+  
+@keyframes spin {
+	to {
+	  -webkit-transform: rotate(360deg);
+	}
+}
+  
+@-webkit-keyframes spin {
+	to {
+	  -webkit-transform: rotate(360deg);
+	}
+}
+
+  /** MODAL STYLING **/
+
+.modal-content {
+	border-radius: 0px;
+	box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+}
+  
+.modal-backdrop.show {
+	opacity: 0.75;
+}
+  
+.loader-txt {
+	font-size: 15px;
+	font-family: 'Lato', sans-serif;
+	font-weight: normal;
+	font-style: normal;
+}
+
+.loader-title {
+	font-family: 'Lato', sans-serif;
+}
+
+
+.home-item {
+	box-sizing: border-box;
+	width: 100%;
+}
+.home-item-column {
+  float: left;
+  width: 50%;
+  padding: 20px;
+}
+/* Clearfix (clear floats) */
+.home-row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 880px) {
+  .home-item-column {
+    width: 100%;
+  }
+}
+
+.home-description {
+	color:white;
+	text-align: justify;
+	font-size: 15px;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }

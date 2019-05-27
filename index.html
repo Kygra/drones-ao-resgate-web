@@ -21,9 +21,31 @@
                 <button class="btnHome" onclick="window.location.href='maps.html'">Mapa</button>
             </div>
         </div>
-        <div class="mainMap">
-          <img id="mosaic" class="mapImage" src="/images/mosaico.png" alt="Mosaico Galeria de Imagens" onclick="window.location.href='gallery.php'" >
+
+        <div class="home-row home-item">
+          <div class="home-item home-item-column">
+            <img id="mosaic" class="mapImage" src="/images/mosaico.png" alt="Mosaico Galeria de Imagens" onclick="window.location.href='gallery.php'" >
+          </div>
+
+          <div class="home-item home-item-column home-description">
+            <h2><b>Drones ao Resgate</b> é uma ferramenta de apoio à tomada de decisão em situações de emergência.</h2>
+            <br>
+            <p><h4>Instruções de uso da ferramenta:</h4></p>
+            <br>
+            <p>Na <b>Galeria</b> são exibidas as imagens previamente inseridas na pasta do Google Drive, assim como as imagens editadas e seus comentários.
+            <br>Ao passar o mouse sobre uma imagem, ainda na tela da galeria, é possível ver o nome da imagem, o comentário, e a última data de modificação.
+            <br>Ao clicar sobre uma imagem na galeria, a imagem é exibida, assim como o comentário e a data da última modificação. Nesta tela é possível abrir a imagem para edição através do botão <img style="width: 20px" src="/images/editor.png">, e abrir a localização da imagem no Google Maps em uma nova aba através do botão <img style="width: 20px" src="/images/map.png">. Ainda é possível navegar para a imagem anterior e para a próxima.</p>
+            
+            <p>Dentro do <b>Editor</b>, é possível fazer diversas modificações na imagem, como inserir marcadores, setas, desenhar, inserir um texto, alterar o brilho, etc.
+            Ao abrir uma imagem para edição, o comentário presente anteriormente na imagem é carregado, e pode ser visto e/ou editado através do botão "Ver e editar comentário". Ao clicar em "Salvar e voltar para Galeria", é feito o upload da imagem editada, associada ao comentário que foi escrito, e a tela é redirecionada para a Galeria novamente.</p>
+
+            <p>No <b>Mapa</b> temos uma visualização embutida do Google Maps, contendo um marcador para cada imagem presente na pasta, posicionado de acordo a localização em que a foto foi tirada.
+            <br>Dentro do mapa, ao clicar em um marcador, se vê uma miniatura da imagem, a data da última modificação e o comentário, se presente. Ao se clicar na miniatura, abre-se em uma nova aba a imagem na galeria.</p>
+            <br>
+            <br>
+          </div>
         </div>
+
         <div class="footerMap">
           <div id="autoria">
             <p>Um projeto de Henrique Romano Correia, 2019. <a href="https://github.com/Kygra/drones-ao-resgate-web">Github</a></p>

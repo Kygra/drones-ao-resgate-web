@@ -7979,7 +7979,7 @@ nanoGALLERY v5.10.3 release notes.
       var t= ( curMode == 'std' ? G.O.viewerToolbar.standard : G.O.viewerToolbar.minimized);
 
       // standard elements
-      var v=['minimizeButton', 'previousButton', 'pageCounter', 'nextButton', 'playPauseButton', 'fullscreenButton', 'infoButton', 'linkOriginalButton', 'label', 'description'];
+      var v=['minimizeButton', 'previousButton', 'pageCounter', 'nextButton', 'playPauseButton', 'fullscreenButton', 'infoButton', 'linkOriginalButton'];
       for( var i=0, l=v.length; i<l; i++) {
         if( v[i] == 'label' ) {
           if( G.$E.conVwTb.find('.title').text() == '' && G.$E.conVwTb.find('.description').text() == '' ) {
@@ -8058,7 +8058,8 @@ nanoGALLERY v5.10.3 release notes.
       var longitude = G.GetCurrentViewedItem().customData.longitude;
 
       //ABRE GOOGLE MAPS COM COORDENADAS DA IMAGEM https://maps.google.com/?q=<lat>,<lng>
-      location.href = "https://maps.google.com/?q=" + latitude + "," + longitude;
+      var mapsLocation = "https://maps.google.com/?q=" + latitude + "," + longitude;
+      window.open(mapsLocation,'_blank');
     }
 
     // Display image (and run animation)
